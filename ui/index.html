@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VaxiSols</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Sarpanch:wght@500;600;700&display=swap">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-spinner">
+      <div class="spinner-circle"></div>
+    </div>
+  </div>
+
+  <div class="app-layout" style="display: none;">
+    <!-- MUI Drawer -->
+    <aside class="MuiDrawer-paper">
+      <div class="MuiToolbar-root">
+        <div class="MuiAvatar-root">
+          <img src="../VaxiSolsIcon_transparent.png" alt="VaxiSols">
+        </div>
+        <div class="MuiToolbar-text">
+          <h1 class="brand-wordmark">VaxiSols</h1>
+          <p>Sol's RNG — merchants, biome rolls & equipped auras :D</p>
+        </div>
+      </div>
+
+      <nav class="MuiList-root">
+        <a href="#" class="MuiListItem-root Mui-selected" data-section="accounts">
+          <div class="MuiListItem-indicator"></div>
+          <span class="material-icons MuiListItemIcon-root">people</span>
+          <span class="MuiListItemText-root">Accounts</span>
+        </a>
+        <a href="#" class="MuiListItem-root" data-section="webhooks">
+          <div class="MuiListItem-indicator"></div>
+          <span class="material-icons MuiListItemIcon-root">link</span>
+          <span class="MuiListItemText-root">Webhooks</span>
+        </a>
+        <a href="#" class="MuiListItem-root" data-section="logs">
+          <div class="MuiListItem-indicator"></div>
+          <span class="material-icons MuiListItemIcon-root">receipt_long</span>
+          <span class="MuiListItemText-root">Event Log</span>
+        </a>
+        <a href="#" class="MuiListItem-root" data-section="settings">
+          <div class="MuiListItem-indicator"></div>
+          <span class="material-icons MuiListItemIcon-root">tune</span>
+          <span class="MuiListItemText-root">Settings</span>
+        </a>
+        <a href="#" class="MuiListItem-root" data-section="credits">
+          <div class="MuiListItem-indicator"></div>
+          <span class="material-icons MuiListItemIcon-root">info</span>
+          <span class="MuiListItemText-root">Credits</span>
+        </a>
+      </nav>
+
+      <div class="MuiDrawer-actions">
+        <div class="MuiMacroControl">
+          <button id="detectorBtn" class="MuiFab-root MuiFab-stopped" ripple title="Start">
+            <span class="material-icons" id="detectorIcon">play_arrow</span>
+          </button>
+          <span class="MuiMacroStatus" id="detectorStatus">stopped</span>
+        </div>
+        <div class="MuiDivider-root"></div>
+        <div class="MuiSwitch-row">
+          <span class="MuiSwitch-label">Theme</span>
+          <button id="themeToggle" class="MuiIconButton-root" ripple>
+            <span class="material-icons" id="themeIcon">dark_mode</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MUI Content -->
+    <main class="MuiContainer-root">
+      <!-- Custom macOS-style Title Bar (top-left pill) -->
+      <div class="MacTitleBar">
+        <div class="MacTitleBar-dots">
+          <button class="MacTitleBar-dot MacTitleBar-dotClose" id="btnClose"></button>
+          <button class="MacTitleBar-dot MacTitleBar-dotMinimize" id="btnMinimize"></button>
+        </div>
+      </div>
+
+      <!-- Accounts -->
+      <div class="content-section active" id="accounts-section">
+        <div class="MuiCard-root">
+          <div class="MuiCardHeader-root">
+            <span class="material-icons MuiCardHeader-avatar">people</span>
+            <div>
+              <h2 class="MuiCardHeader-title">Accounts</h2>
+              <p class="MuiCardHeader-subheader">Add Roblox usernames and bind each to the right client window</p>
+            </div>
+          </div>
+          <div class="MuiCardContent-root">
+            <div class="MuiFormControl-root">
+              <label class="MuiInputLabel-root">Add Account</label>
+              <div class="MuiOutlinedInput-root" style="display:flex;gap:8px">
+                <input id="newAccountInput" class="MuiOutlinedInput-input" style="flex:1" placeholder="Roblox username">
+                <button id="addAccountBtn" class="MuiButton-root MuiButton-contained MuiButton-containedPrimary" ripple>
+                  <span class="material-icons MuiButton-startIcon">add</span>
+                  Add
+                </button>
+              </div>
+            </div>
+            <div id="accountsList" class="MuiList-padding">
+              <!-- Accounts will be rendered here -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Webhooks -->
+      <div class="content-section" id="webhooks-section">
+        <div class="MuiCard-root">
+          <div class="MuiCardHeader-root">
+            <span class="material-icons MuiCardHeader-avatar">link</span>
+            <div>
+              <h2 class="MuiCardHeader-title">Webhooks</h2>
+              <p class="MuiCardHeader-subheader">Discord notifications</p>
+            </div>
+          </div>
+          <div class="MuiCardContent-root">
+            <div class="MuiFormControl-root">
+              <label class="MuiInputLabel-root">Discord Webhook URLs</label>
+              <div class="MuiOutlinedInput-root">
+                <textarea id="webhookUrls" class="MuiOutlinedInput-input" rows="4" placeholder="One Discord webhook URL per line"></textarea>
+              </div>
+            </div>
+            <button id="saveWebhookBtn" class="MuiButton-root MuiButton-contained MuiButton-containedPrimary" ripple>
+              <span class="material-icons MuiButton-startIcon">save</span>
+              Save Webhooks
+            </button>
+            <button id="testWebhookBtn" class="MuiButton-root MuiButton-contained MuiButton-containedError" ripple style="margin-top:8px">
+              <span class="material-icons MuiButton-startIcon">send</span>
+              Test Webhook
+            </button>
+            <div class="MuiFormControl-root" style="margin-top:12px">
+              <label class="MuiInputLabel-root">Private Server URL</label>
+              <div style="display:flex;gap:8px;align-items:center">
+                <input id="privateServerInput" class="MuiOutlinedInput-input" type="text" placeholder="Private Server URL (optional)" style="flex:1">
+                <button id="editPrivateServerBtn" class="MuiButton-root MuiButton-contained MuiButton-containedError" ripple style="flex-shrink:0">
+                  <span class="material-icons MuiButton-startIcon">edit</span>
+                  Edit
+                </button>
+              </div>
+            </div>
+            <p id="webhookTestResult" class="MuiFormHelperText-root" style="margin-top:6px;color:#00d4aa"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event Log -->
+      <div class="content-section" id="logs-section">
+        <div class="MuiCard-root MuiCard-log">
+          <div class="MuiCardHeader-root">
+            <span class="material-icons MuiCardHeader-avatar">receipt_long</span>
+            <div>
+              <h2 class="MuiCardHeader-title">Event Log</h2>
+              <p class="MuiCardHeader-subheader">Biomes, merchants, aura equips, and scan notices</p>
+            </div>
+          </div>
+          <div class="MuiCardContent-root">
+            <pre id="eventLog" class="MuiCode-root"></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings -->
+      <div class="content-section" id="settings-section">
+        <div class="MuiCard-root">
+          <div class="MuiCardHeader-root">
+            <span class="material-icons MuiCardHeader-avatar">tune</span>
+            <div>
+              <h2 class="MuiCardHeader-title">Settings</h2>
+              <p class="MuiCardHeader-subheader">Turn detector channels on or off</p>
+            </div>
+          </div>
+          <div class="MuiCardContent-root">
+            <div class="MuiFormControl-root">
+              <label class="MuiInputLabel-root">Detection</label>
+              <div class="MuiSwitch-settingRow">
+                <span class="MuiSwitch-rowLabel" id="lbl-setBiome">Biome detection</span>
+                <label class="MuiSwitch-root MuiAntSwitch" title="Biome detection">
+                  <input type="checkbox" class="MuiSwitch-input" id="setBiome" checked aria-labelledby="lbl-setBiome">
+                  <span class="MuiSwitch-track"></span>
+                  <span class="MuiSwitch-thumb"></span>
+                </label>
+              </div>
+              <div class="MuiSwitch-settingRow">
+                <span class="MuiSwitch-rowLabel" id="lbl-setMerchant">Merchant detection</span>
+                <label class="MuiSwitch-root MuiAntSwitch" title="Merchant detection">
+                  <input type="checkbox" class="MuiSwitch-input" id="setMerchant" checked aria-labelledby="lbl-setMerchant">
+                  <span class="MuiSwitch-track"></span>
+                  <span class="MuiSwitch-thumb"></span>
+                </label>
+              </div>
+              <div class="MuiSwitch-settingRow">
+                <span class="MuiSwitch-rowLabel" id="lbl-setAura">Aura detection</span>
+                <label class="MuiSwitch-root MuiAntSwitch" title="Aura detection">
+                  <input type="checkbox" class="MuiSwitch-input" id="setAura" checked aria-labelledby="lbl-setAura">
+                  <span class="MuiSwitch-track"></span>
+                  <span class="MuiSwitch-thumb"></span>
+                </label>
+              </div>
+            </div>
+            <div class="MuiFormControl-root" style="margin-top:14px">
+              <label class="MuiInputLabel-root">Merchant extras (only when logs say “merchant npc” without a name)</label>
+              <div class="MuiSwitch-settingRow">
+                <span class="MuiSwitch-rowLabel" id="lbl-setMerchantVisual">Banner color hint (no OCR)</span>
+                <label class="MuiSwitch-root MuiAntSwitch" title="Banner color hint">
+                  <input type="checkbox" class="MuiSwitch-input" id="setMerchantVisual" checked aria-labelledby="lbl-setMerchantVisual">
+                  <span class="MuiSwitch-track"></span>
+                  <span class="MuiSwitch-thumb"></span>
+                </label>
+              </div>
+              <div class="MuiSwitch-settingRow">
+                <span class="MuiSwitch-rowLabel" id="lbl-setMerchantOcr">OCR assist (RapidOCR / Tesseract — optional, less stable)</span>
+                <label class="MuiSwitch-root MuiAntSwitch" title="OCR assist">
+                  <input type="checkbox" class="MuiSwitch-input" id="setMerchantOcr" aria-labelledby="lbl-setMerchantOcr">
+                  <span class="MuiSwitch-track"></span>
+                  <span class="MuiSwitch-thumb"></span>
+                </label>
+              </div>
+            </div>
+            <button id="saveSettingsBtn" class="MuiButton-root MuiButton-contained MuiButton-containedPrimary" ripple style="margin-top:12px">
+              <span class="material-icons MuiButton-startIcon">save</span>
+              Save settings
+            </button>
+            <p id="settingsSaveNote" class="MuiFormHelperText-root" style="margin-top:8px;color:var(--mui-text-secondary)"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Credits -->
+      <div class="content-section" id="credits-section">
+        <div class="MuiCard-root">
+          <div class="MuiCardHeader-root">
+            <span class="material-icons MuiCardHeader-avatar">info</span>
+            <div>
+              <h2 class="MuiCardHeader-title">Credits</h2>
+              <p class="MuiCardHeader-subheader brand-wordmark">VaxiSols</p>
+            </div>
+          </div>
+          <div class="MuiCardContent-root">
+            <div style="text-align: center; padding: 20px;">
+              <h3 class="brand-wordmark" style="color: var(--mui-primary); margin-bottom: 16px;">VaxiSols</h3>
+              <p style="margin-bottom: 20px; color: var(--mui-text-secondary);">
+                Merchants, biome rolls & equipped auras — multi-account, Discord-ready
+              </p>
+              <div style="background: var(--mui-paper); border-radius: 8px; padding: 16px; margin: 20px 0; border: 1px solid var(--mui-divider);">
+                <h4 style="color: var(--mui-text-primary); margin-bottom: 12px;">Developer</h4>
+                <p style="margin: 8px 0;">
+                  <span class="material-icons" style="vertical-align: middle; margin-right: 8px; color: var(--mui-primary);">discord</span>
+                  <strong><a href="#" id="developerLink" data-open-url="https://github.com/vaxity1829" style="color: var(--mui-primary); text-decoration: none;">@vaxity1829</a></strong>
+                </p>
+              </div>
+              <div style="background: var(--mui-paper); border-radius: 8px; padding: 16px; margin: 20px 0; border: 1px solid var(--mui-divider);">
+                <h4 style="color: var(--mui-text-primary); margin-bottom: 12px;">Features</h4>
+                <ul style="list-style: none; padding: 0; text-align: left;">
+                  <li style="margin: 8px 0;">
+                    <span class="material-icons" style="vertical-align: middle; margin-right: 8px; color: var(--mui-primary);">people</span>
+                    Multi-account support
+                  </li>
+                  <li style="margin: 8px 0;">
+                    <span class="material-icons" style="vertical-align: middle; margin-right: 8px; color: var(--mui-primary);">link</span>
+                    Discord webhook notifications
+                  </li>
+                  <li style="margin: 8px 0;">
+                    <span class="material-icons" style="vertical-align: middle; margin-right: 8px; color: var(--mui-primary);">window</span>
+                    Roblox window detection
+                  </li>
+                  <li style="margin: 8px 0;">
+                    <span class="material-icons" style="vertical-align: middle; margin-right: 8px; color: var(--mui-primary);">palette</span>
+                    Dark/Light theme support
+                  </li>
+                </ul>
+              </div>
+              <p style="margin-top: 24px; font-size: 12px; color: var(--mui-text-disabled);">
+                Version 1.1r | Made with ❤️ for Sol's RNG
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="./app.js"></script>
+  <script>
+    document.querySelectorAll('[ripple]').forEach(el => {
+      el.style.position = 'relative';
+      el.style.overflow = 'hidden';
+      el.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        ripple.className = 'MuiRipple-ripple';
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height) * 2;
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+        this.appendChild(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove());
+      });
+    });
+  </script>
+</body>
+</html>

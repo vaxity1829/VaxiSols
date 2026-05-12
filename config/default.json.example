@@ -1,0 +1,16 @@
+{
+  "accounts": [],
+  "webhooks": {
+    "urls": []
+  },
+  "private_server": "",
+  "detector_features": {
+    "biome": true,
+    "merchant": true,
+    "aura": true,
+    "merchant_use_ocr": false,
+    "merchant_visual_fallback": true
+  },
+  "active_resolution_profile": "1920x1080_100",
+  "features": {}
+}

@@ -1,0 +1,7 @@
+pywebview
+keyboard
+pyautogui
+psutil
+Pillow
+pytesseract
+rapidocr-onnxruntime
