@@ -93,8 +93,3 @@ Creates **`github repo release/`**:
 
 Design influences (no wholesale code copies) include community macros such as FishSol-style fishing loops, Noteab-style log ideas, and MultiScope-style webhook/log naming. Upstream clone helper: `scripts\clone_references.ps1` — see `reference/README.md` when present.
 
----
-
-## License
-
-No license file is bundled by default; add one (e.g. MIT) when you publish if you want standard open-source terms.
