@@ -1,5 +1,6 @@
+--------------------------------------------------
 <img width="277" height="52" alt="image" src="https://github.com/user-attachments/assets/97a3fde5-47e4-4a73-bc32-99318995b856" />
-
+--------------------------------------------------
 
 Desktop companion for **Sol's RNG** on Windows: multi-account **log-based** detection (biomes, merchants, equipped auras) with optional Discord webhooks, plus a dark Material-style UI built with Python and pywebview.
 
