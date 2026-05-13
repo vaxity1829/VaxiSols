@@ -78,5 +78,5 @@ Merchant OCR pulls **ONNX** models via `rapidocr-onnxruntime`; the bundle is lar
 
 ## References & credits
 
-Design influences (no wholesale code copies) include community macros such as FishSol-style fishing loops, Noteab-style log ideas, and MultiScope-style webhook/log naming. Upstream clone helper: `scripts\clone_references.ps1` — see `reference/README.md` when present.
+Design influences (no wholesale code copies) include community macros such as FishSol-style fishing loops, Noteab-style log ideas, and MultiScope-style webhook/log naming.
 
