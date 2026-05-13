@@ -60,24 +60,6 @@ Output: `dist\VaxiSols.exe` (one-file, windowed). Config and saves are written n
 
 Merchant OCR pulls **ONNX** models via `rapidocr-onnxruntime`; the bundle is large but self-contained.
 
----
-
-## One-shot release folders (source + portable)
-
-After a successful build:
-
-```powershell
-.\scripts\prepare_github_release.ps1
-```
-
-Creates **`github repo release/`**:
-
-| Folder | Purpose |
-|--------|--------|
-| `VaxiSols-source/` | Tree suitable for `git init` / push (excludes `.venv`, `build`, `dist`, `reference`, and your local `config/default.json`). |
-| `VaxiSols-portable/` | `VaxiSols.exe`, `README.txt`, and `config/default.json.example`. Zip this for GitHub Releases. |
-
----
 
 ## Project layout
 
