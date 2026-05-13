@@ -7,6 +7,8 @@ Desktop companion for **Sol's RNG** on Windows: multi-account **log-based** dete
 
 **Disclaimer:** This is an unofficial automation assistant. Use only where allowed by Roblox and the game’s rules; authors are not responsible for bans or account issues.
 
+Read https://vaxity1829.github.io/VaxiSols-website/
+
 ---
 
 ## Features
